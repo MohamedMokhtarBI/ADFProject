@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://lakehousedata.dfs.core.windows.net/"
@@ -22,6 +26,10 @@
 		"default_properties_subscriptionname_value": {
 			"type": "string",
 			"defaultValue": "hello"
+		},
+		"default_properties_helloname_value": {
+			"type": "string",
+			"defaultValue": "aze"
 		},
 		"containerUri": {
 			"type": "string",
@@ -53,8 +61,14 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
 					"default_properties_subscriptionname_value": {
 						"value": "[parameters('default_properties_subscriptionname_value')]"
+					},
+					"default_properties_helloname_value": {
+						"value": "[parameters('default_properties_helloname_value')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"

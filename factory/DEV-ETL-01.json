@@ -1,0 +1,9 @@
+{
+	"name": "DEV-ETL-01",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d2d87ad9-98d5-419e-98cf-0ee7a146efb7",
+		"tenantId": "ea669b4f-f9b5-4e67-b2c9-adc8b248fd20"
+	}
+}

@@ -74,7 +74,12 @@
 							{
 								"referenceName": "DelimitedText1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"tyu": {
+										"value": "@pipeline().globalParameters.subscriptionname",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
@@ -88,6 +93,11 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"azeasd": {
+						"type": "String"
+					}
 				},
 				"annotations": []
 			},
@@ -104,6 +114,12 @@
 				"linkedServiceName": {
 					"referenceName": "AzureDataLakeStorage1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tyu": {
+						"type": "string",
+						"defaultValue": "dfg"
+					}
 				},
 				"annotations": [],
 				"type": "DelimitedText",

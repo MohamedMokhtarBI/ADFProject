@@ -1,1 +1,6 @@
-{}
+{
+	"subscriptionname": {
+		"type": "string",
+		"value": "hello"
+	}
+}

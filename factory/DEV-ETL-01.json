@@ -1,5 +1,13 @@
 {
 	"name": "DEV-ETL-01",
+	"properties": {
+		"globalParameters": {
+			"subscriptionname": {
+				"type": "string",
+				"value": "hello"
+			}
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",

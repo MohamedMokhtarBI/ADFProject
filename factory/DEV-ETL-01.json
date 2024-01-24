@@ -5,6 +5,10 @@
 			"subscriptionname": {
 				"type": "string",
 				"value": "hello"
+			},
+			"helloname": {
+				"type": "string",
+				"value": "aze"
 			}
 		}
 	},

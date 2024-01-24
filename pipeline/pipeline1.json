@@ -66,11 +66,18 @@
 				]
 			}
 		],
+		"parameters": {
+			"ParamFromPipeline": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"azeasd": {
 				"type": "String"
 			}
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2024-01-24T13:23:47Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

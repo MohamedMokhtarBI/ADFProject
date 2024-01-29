@@ -11,25 +11,37 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
-		"AzureBlobStorage1_connectionString": {
+		"AzureDatabricks1_accessToken": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
-		"default_properties_subscriptionname_value": {
+		"default_properties_BronzeLayer_value": {
 			"type": "string",
-			"defaultValue": "hello"
+			"defaultValue": "bronze"
 		},
-		"default_properties_helloname_value": {
+		"default_properties_SilverLayer_value": {
 			"type": "string",
-			"defaultValue": "aze"
+			"defaultValue": "silver"
+		},
+		"default_properties_goldlayer_value": {
+			"type": "string",
+			"defaultValue": "gold"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://lakehousedata.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "https://securityEndToEndProject.vault.azure.net/"
+			"defaultValue": "0128-211224-y15hjnf0"
+		},
+		"trigger1_properties_pipeline1_parameters_PipelineLayer": {
+			"type": "string",
+			"defaultValue": "Silver"
+		},
+		"trigger1_properties_pipeline1_parameters_PipelineFolder": {
+			"type": "string",
+			"defaultValue": "hello"
 		}
 	},
 	"variables": {
@@ -41,13 +53,17 @@
 			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"subscriptionname": {
+				"BronzeLayer": {
 					"type": "string",
-					"value": "[parameters('default_properties_subscriptionname_value')]"
+					"value": "[parameters('default_properties_BronzeLayer_value')]"
 				},
-				"helloname": {
+				"SilverLayer": {
 					"type": "string",
-					"value": "[parameters('default_properties_helloname_value')]"
+					"value": "[parameters('default_properties_SilverLayer_value')]"
+				},
+				"goldlayer": {
+					"type": "string",
+					"value": "[parameters('default_properties_goldlayer_value')]"
 				}
 			},
 			"dependsOn": []
@@ -70,33 +86,25 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureKeyVault1')]",
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "AzureKeyVault",
+				"type": "AzureDatabricks",
 				"typeProperties": {
-					"baseUrl": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					"domain": "https://adb-4189667067602870.10.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText3')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -104,19 +112,14 @@
 					"referenceName": "AzureDataLakeStorage1",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"tyu": {
-						"type": "string",
-						"defaultValue": "dfg"
-					}
-				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "agence.csv",
-						"fileSystem": "test"
+						"folderPath": "Files",
+						"fileSystem": "bronze"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "\\",
@@ -143,12 +146,27 @@
 					"referenceName": "AzureDataLakeStorage1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"ParquetLayerName": {
+						"type": "string"
+					},
+					"ParquetFolderName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "test"
+						"folderPath": {
+							"value": "@dataset().ParquetFolderName",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().ParquetLayerName",
+							"type": "Expression"
+						}
 					},
 					"compressionCodec": "snappy"
 				},
@@ -191,8 +209,7 @@
 							"sink": {
 								"type": "ParquetSink",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings",
-									"copyBehavior": "FlattenHierarchy"
+									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
 									"type": "ParquetWriteSettings"
@@ -210,21 +227,22 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DelimitedText1",
+								"referenceName": "DelimitedText3",
 								"type": "DatasetReference",
-								"parameters": {
-									"tyu": {
-										"value": "@pipeline().globalParameters.subscriptionname",
-										"type": "Expression"
-									}
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "Parquet1",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"ParquetLayerName": "silver",
+									"ParquetFolderName": {
+										"value": "@coalesce(null)",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -233,21 +251,53 @@
 					"elapsedTimeMetric": {}
 				},
 				"parameters": {
-					"ParamFromPipeline": {
+					"PipelineLayer": {
 						"type": "string"
-					}
-				},
-				"variables": {
-					"azeasd": {
-						"type": "String"
+					},
+					"PipelineFolder": {
+						"type": "string",
+						"defaultValue": "Files"
 					}
 				},
 				"annotations": [],
 				"lastPublishTime": "2024-01-24T13:23:47Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText3')]",
 				"[concat(variables('factoryId'), '/datasets/Parquet1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pipeline1",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"PipelineLayer": "[parameters('trigger1_properties_pipeline1_parameters_PipelineLayer')]",
+							"PipelineFolder": "[parameters('trigger1_properties_pipeline1_parameters_PipelineFolder')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 2,
+						"startTime": "2024-01-29T12:26:00",
+						"timeZone": "Romance Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
 			]
 		}
 	]

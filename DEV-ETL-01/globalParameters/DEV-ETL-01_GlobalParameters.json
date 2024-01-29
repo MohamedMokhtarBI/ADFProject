@@ -1,10 +1,14 @@
 {
-	"subscriptionname": {
+	"BronzeLayer": {
 		"type": "string",
-		"value": "hello"
+		"value": "bronze"
 	},
-	"helloname": {
+	"SilverLayer": {
 		"type": "string",
-		"value": "aze"
+		"value": "silver"
+	},
+	"goldlayer": {
+		"type": "string",
+		"value": "gold"
 	}
 }

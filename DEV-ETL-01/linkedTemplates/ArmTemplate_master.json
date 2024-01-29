@@ -11,25 +11,37 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
-		"AzureBlobStorage1_connectionString": {
+		"AzureDatabricks1_accessToken": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://lakehousedata.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 			"type": "string",
-			"defaultValue": "https://securityEndToEndProject.vault.azure.net/"
+			"defaultValue": "0128-211224-y15hjnf0"
 		},
-		"default_properties_subscriptionname_value": {
+		"trigger1_properties_pipeline1_parameters_PipelineLayer": {
+			"type": "string",
+			"defaultValue": "Silver"
+		},
+		"trigger1_properties_pipeline1_parameters_PipelineFolder": {
 			"type": "string",
 			"defaultValue": "hello"
 		},
-		"default_properties_helloname_value": {
+		"default_properties_BronzeLayer_value": {
 			"type": "string",
-			"defaultValue": "aze"
+			"defaultValue": "bronze"
+		},
+		"default_properties_SilverLayer_value": {
+			"type": "string",
+			"defaultValue": "silver"
+		},
+		"default_properties_goldlayer_value": {
+			"type": "string",
+			"defaultValue": "gold"
 		},
 		"containerUri": {
 			"type": "string",
@@ -61,20 +73,29 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
-					"AzureBlobStorage1_connectionString": {
-						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
 					},
-					"default_properties_subscriptionname_value": {
-						"value": "[parameters('default_properties_subscriptionname_value')]"
+					"default_properties_BronzeLayer_value": {
+						"value": "[parameters('default_properties_BronzeLayer_value')]"
 					},
-					"default_properties_helloname_value": {
-						"value": "[parameters('default_properties_helloname_value')]"
+					"default_properties_SilverLayer_value": {
+						"value": "[parameters('default_properties_SilverLayer_value')]"
+					},
+					"default_properties_goldlayer_value": {
+						"value": "[parameters('default_properties_goldlayer_value')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
-					"AzureKeyVault1_properties_typeProperties_baseUrl": {
-						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+					},
+					"trigger1_properties_pipeline1_parameters_PipelineLayer": {
+						"value": "[parameters('trigger1_properties_pipeline1_parameters_PipelineLayer')]"
+					},
+					"trigger1_properties_pipeline1_parameters_PipelineFolder": {
+						"value": "[parameters('trigger1_properties_pipeline1_parameters_PipelineFolder')]"
 					}
 				}
 			},

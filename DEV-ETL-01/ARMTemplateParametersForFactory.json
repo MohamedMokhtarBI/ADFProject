@@ -8,20 +8,29 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"AzureBlobStorage1_connectionString": {
+		"AzureDatabricks1_accessToken": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://lakehousedata.dfs.core.windows.net/"
 		},
-		"AzureKeyVault1_properties_typeProperties_baseUrl": {
-			"value": "https://securityEndToEndProject.vault.azure.net/"
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0128-211224-y15hjnf0"
 		},
-		"default_properties_subscriptionname_value": {
+		"trigger1_properties_pipeline1_parameters_PipelineLayer": {
+			"value": "Silver"
+		},
+		"trigger1_properties_pipeline1_parameters_PipelineFolder": {
 			"value": "hello"
 		},
-		"default_properties_helloname_value": {
-			"value": "aze"
+		"default_properties_BronzeLayer_value": {
+			"value": "bronze"
+		},
+		"default_properties_SilverLayer_value": {
+			"value": "silver"
+		},
+		"default_properties_goldlayer_value": {
+			"value": "gold"
 		}
 	}
 }

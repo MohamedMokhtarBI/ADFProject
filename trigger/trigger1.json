@@ -6,16 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "pipeline1",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"PipelineLayer": "Silver",
-					"PipelineFolder": "hello"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "pipeline2",
 					"type": "PipelineReference"
 				}

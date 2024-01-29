@@ -23,14 +23,6 @@
 			"type": "string",
 			"defaultValue": "0128-211224-y15hjnf0"
 		},
-		"trigger1_properties_pipeline1_parameters_PipelineLayer": {
-			"type": "string",
-			"defaultValue": "Silver"
-		},
-		"trigger1_properties_pipeline1_parameters_PipelineFolder": {
-			"type": "string",
-			"defaultValue": "hello"
-		},
 		"default_properties_BronzeLayer_value": {
 			"type": "string",
 			"defaultValue": "bronze"
@@ -90,12 +82,6 @@
 					},
 					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
-					},
-					"trigger1_properties_pipeline1_parameters_PipelineLayer": {
-						"value": "[parameters('trigger1_properties_pipeline1_parameters_PipelineLayer')]"
-					},
-					"trigger1_properties_pipeline1_parameters_PipelineFolder": {
-						"value": "[parameters('trigger1_properties_pipeline1_parameters_PipelineFolder')]"
 					}
 				}
 			},

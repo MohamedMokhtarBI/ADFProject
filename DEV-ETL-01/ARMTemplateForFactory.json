@@ -144,7 +144,10 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "agence.csv",
-						"folderPath": "Files",
+						"folderPath": {
+							"value": "@coalesce(null)",
+							"type": "Expression"
+						},
 						"fileSystem": "bronze"
 					},
 					"columnDelimiter": ";",
